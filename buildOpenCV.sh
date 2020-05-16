@@ -101,7 +101,7 @@ sudo apt-get install -y \
     pkg-config \
     libtbb-dev \
     libeigen3-dev \
-    libopenblas-dev \ 
+    libopenblas-dev \
     liblapacke-dev \
     libgtkglext1 \
     libgtkglext1-dev
