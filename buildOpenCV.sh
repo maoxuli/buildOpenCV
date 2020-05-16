@@ -2,7 +2,7 @@
 # License: MIT. See license file in root directory
 # Copyright(c) JetsonHacks (2017-2019)
 
-OPENCV_VERSION=4.1.1
+OPENCV_VERSION=4.3.0
 # Jetson Nano
 ARCH_BIN=5.3
 INSTALL_DIR=/usr/local
@@ -98,7 +98,13 @@ sudo apt-get install -y \
     libx264-dev \
     qt5-default \
     zlib1g-dev \
-    pkg-config
+    pkg-config \
+    libtbb-dev \
+    libeigen3-dev \
+    libopenblas-dev \ 
+    liblapacke-dev \
+    libgtkglext1 \
+    libgtkglext1-dev
 
 # We will be supporting OpenGL, we need a little magic to help
 # https://devtalk.nvidia.com/default/topic/1007290/jetson-tx2/building-opencv-with-opengl-support-/post/5141945/#5141945
@@ -141,16 +147,11 @@ cd build
 #     -D INSTALL_C_EXAMPLES=ON \
 #     -D INSTALL_PYTHON_EXAMPLES=ON \
 
-# If you are compiling the opencv_contrib modules:
-# curl -L https://github.com/opencv/opencv_contrib/archive/3.4.1.zip -o opencv_contrib-3.4.1.zip
-
-# There are also switches which tell CMAKE to build the samples and tests
-# Check OpenCV documentation for details
-#       -D WITH_QT=ON \
-
 echo $PWD
 time cmake -D CMAKE_BUILD_TYPE=RELEASE \
       -D CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} \
+      -D OPENCV_GENERATE_PKGCONFIG=YES \
+      -D OPENCV_ENABLE_NONFREE:BOOL=ON \
       -D WITH_CUDA=ON \
       -D CUDA_ARCH_BIN=${ARCH_BIN} \
       -D CUDA_ARCH_PTX="" \
@@ -170,7 +171,6 @@ time cmake -D CMAKE_BUILD_TYPE=RELEASE \
       -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
       $"PACKAGE_OPENCV" \
       ../
-
 
 if [ $? -eq 0 ] ; then
   echo "CMake configuration make successful"
