@@ -162,6 +162,7 @@ time cmake -D CMAKE_BUILD_TYPE=RELEASE \
       -D WITH_V4L=ON \
       -D WITH_GSTREAMER=ON \
       -D WITH_GSTREAMER_0_10=OFF \
+      -D WITH_FFMPEG=ON \
       -D WITH_QT=ON \
       -D WITH_OPENGL=ON \
       -D BUILD_opencv_python2=ON \
